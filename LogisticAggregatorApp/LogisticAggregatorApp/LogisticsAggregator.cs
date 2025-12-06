@@ -15,9 +15,9 @@ public class LogisticsAggregator
 
     public (decimal, double) GetQuote(TransportType type, double distance, double weight)
     {
-        var result = _providers[type].Calculate(distance, weight);
-        var historyRecord = $"{_providers[type]}, время: {result.Item2}, стоимость: {result.Item1}";
+        var (cost, hours) = _providers[type].Calculate(distance, weight);
+        var historyRecord = $"{_providers[type]}, время: {hours}, стоимость: {cost}";
         _history.Add(historyRecord);
-        return result;
+        return (cost, hours);
     }
 }
