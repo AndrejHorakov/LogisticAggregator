@@ -1,3 +1,12 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿using LogisticAggregatorApp;
+using LogisticAggregatorApp.Transport;
 
-Console.WriteLine("Hello, World!");
+var providers = new Dictionary<TransportType, ITransportProvider>
+{
+    [TransportType.Air] = new AirProvider(),
+    [TransportType.Train] = new TrainProvider(),
+    [TransportType.Truck] = new TruckProvider()
+};
+
+var aggregator = new LogisticsAggregator(providers);
+Console.WriteLine(aggregator.GetQuote(TransportType.Truck, 3010, 50));
